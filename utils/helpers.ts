@@ -90,7 +90,7 @@ export const docDefinitionDefault: TDocumentDefinitions = {
     }
   ],
   defaultStyle: {
-    font: "Helvetica",
+    font: "NimbusSans",
 
   },
   styles: {

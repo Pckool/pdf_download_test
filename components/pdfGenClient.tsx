@@ -4,23 +4,23 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import html2canvas from "html2canvas";
 // import 'pdfmake/build/vfs_fonts'
 import * as pdfFonts from 'pdfmake/build/vfs_fonts'
-// import vfs from '../fonts/vfs_fonts'
+import vfs from '../fonts/vfs_fonts'
 import { lookAheadData } from "../assets/test-data";
 import { ContentImage, ContentTable, TDocumentDefinitions } from "pdfmake/interfaces";
 import { toast } from 'sonner'
 import { docDefinitionDefault, headers, parseLookAheadData, parseToPdfData, TableData } from "@/utils/helpers";
 // @ts-ignore
-// pdfMake.vfs = vfs;
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs = vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
 // @ts-ignore
 pdfMake.fonts = {
-  //   NimbusSans: {
-  //     normal: "NimbusSanL-Reg.otf",
-  //     bold: "NimbusSanL-Bol.otf",
+    NimbusSans: {
+      normal: "NimbusSanL-Reg.otf",
+      bold: "NimbusSanL-Bol.otf",
 
-  //     italics: "NimbusSanL-RegIta.otf",
-  //     bolditalics: "NimbusSanL-BolIta.otf"
-  //   }
+      italics: "NimbusSanL-RegIta.otf",
+      bolditalics: "NimbusSanL-BolIta.otf"
+    },
   Courier: {
     normal: 'Courier',
     bold: 'Courier-Bold',
@@ -82,78 +82,78 @@ export default function PDFGenClient() {
     }
   };
 
-  // useEffect(() => {
-  //   const parsed = parseLookAheadData(lookAheadData.tableData);
-  //   const pdfData = parseToPdfData(parsed);
-  //   setPdfData(pdfData);
-  //   setData(parsed);
-  // }, []);
+  useEffect(() => {
+    const parsed = parseLookAheadData(lookAheadData.tableData);
+    const pdfData = parseToPdfData(parsed);
+    setPdfData(pdfData);
+    setData(parsed);
+  }, []);
 
-  // // if the data changes, update the docDefinition
-  // useEffect(() => {
-  //   setTableBodyData();
-  // }, [data]);
+  // if the data changes, update the docDefinition
+  useEffect(() => {
+    setTableBodyData();
+  }, [data]);
 
-  // const create = () => {
+  const create = () => {
 
-  //   console.log('ran ')
-  //   if (!docDefinition) {
-  //     return toast(`couldn't find a doc definition`)
-  //   }
-  //   try {
-  //     const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-  //     pdfDocGenerator.download();
-  //   } catch (err) {
-  //     console.error(err)
-  //     toast.error(`error generating pdf`)
-  //   }
-  // };
+    console.log('ran ')
+    if (!docDefinition) {
+      return toast(`couldn't find a doc definition`)
+    }
+    try {
+      const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+      pdfDocGenerator.download();
+    } catch (err) {
+      console.error(err)
+      toast.error(`error generating pdf`)
+    }
+  };
 
-  // const genPdf = async () => {
-  //   //get table html
-  //   const pdfTable = tableRef.current;
-  //   if (!pdfTable) {
-  //     return toast(`couldn't find a table to embed`)
-  //   }
-  //   if (!docDefinition) {
-  //     return toast(`couldn't find a doc definition`)
-  //   }
-  //   try {
-  //     const canvas = await html2canvas(pdfTable)
-  //     const imgObj: ContentImage = {
-  //       image: canvas.toDataURL("image/png"),
-  //       width: 600,
-  //       style: {
-  //         alignment: "center"
-  //       }
-  //     };
-  //     const documentDefinition: TDocumentDefinitions = {
-  //       content: [imgObj],
-  //       defaultStyle: {
-  //         font: "Helvetica"
-  //       },
-  //       pageSize: "A4",
-  //       pageOrientation: "portrait",
-  //       pageMargins: [40, 60, 40, 60]
-  //     };
-  //     const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-  //     pdfDocGenerator.download();
+  const genPdf = async () => {
+    //get table html
+    const pdfTable = tableRef.current;
+    if (!pdfTable) {
+      return toast(`couldn't find a table to embed`)
+    }
+    if (!docDefinition) {
+      return toast(`couldn't find a doc definition`)
+    }
+    try {
+      const canvas = await html2canvas(pdfTable)
+      const imgObj: ContentImage = {
+        image: canvas.toDataURL("image/png"),
+        width: 600,
+        style: {
+          alignment: "center"
+        }
+      };
+      const documentDefinition: TDocumentDefinitions = {
+        content: [imgObj],
+        defaultStyle: {
+          font: "NimbusSans"
+        },
+        pageSize: "A4",
+        pageOrientation: "portrait",
+        pageMargins: [40, 60, 40, 60]
+      };
+      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
+      pdfDocGenerator.download();
 
-  //   } catch (err) {
-  //     console.error(err)
-  //     toast.error(`error generating pdf`)
-  //   }
+    } catch (err) {
+      console.error(err)
+      toast.error(`error generating pdf`)
+    }
 
-  // };
+  };
 
   return (
     <div className="">
       <h2>Start editing to see some magic!</h2>
-      {/* <button onClick={create}>Generate PDF using PDF Make (HTML embed)</button> */}
+      <button onClick={create}>Generate PDF using PDF Make (HTML embed)</button>
       <h1>Hello CodeSandbox</h1>
 
 
-      {/* <>
+      <>
         <div ref={tableRef}>
           <table>
             <thead>
@@ -190,7 +190,7 @@ export default function PDFGenClient() {
       </>
       <button onClick={genPdf}>
         Generate PDF for Table with PDFMake (image embed + styles)
-      </button> */}
+      </button>
     </div>
   );
 }
