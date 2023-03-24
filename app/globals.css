@@ -87,12 +87,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  
 }
 
 a {
@@ -104,4 +99,20 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+.App {
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+}
+
+.status-chip {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: aqua;
+  border-radius: 25px;
+}
+
+#divToPrint {
+  font-family: Helvetica, sans-serif;
 }
